@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Converter</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            color: #ff9800;
+        }
+        h5 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ff9800;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background-color: #333;
+            color: #fff;
+        }
+        button {
+            background-color: #ff9800;
+            color: #121212;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #e68900;
+        }
+        pre, textarea#converted-code {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            overflow: auto;
+            color: #d4d4d4; /* Light gray text color for code */
+            font-family: 'Courier New', Courier, monospace; /* Monospace font for code */
+            white-space: pre-wrap; /* Wrap text */
+            word-wrap: break-word; /* Wrap long words */
+            width: 100%;
+            height: 400px;
+        }
+        .keyword {
+            color: #569cd6; /* Blue for keywords */
+        }
+        .string {
+            color: #ce9178; /* Light brown for strings */
+        }
+        .comment {
+            color: #6a9955; /* Green for comments */
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 200px;
+        }
+        .bynder-widget-container {
+            width: 100px; 
+            height: 100px;
+            margin: 0 auto 20px;
+        }
+        .list-container {
+            margin-bottom: 10px;
+        }
+        .list-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .list-item input {
+            flex: 1;
+            margin-right: 5px;
+        }
+        .italic-text-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <label for="package-url">Package Page URL:</label>
+    <input type="text" id="package-url" placeholder="Enter the package page URL">
+    <button onclick="fetchPackageData()">Fetch Package Data</button>
+    <div class="bynder-widget-container">
+        <div data-bynder-widget="media-item" data-media-id="0BD4DD21-8263-467D-A8719EFCEDF2A6C9" data-title="false" data-lightbox="false" data-download="false">
+            <script id="bynder-widgets-js" data-account-url="assets.quintevents.com" data-language="en" src="https://d8ejoa1fys2rk.cloudfront.net/bynder-embed/latest/bynder-embed.js"></script>
+        </div>
+    </div>
+    <h2>Package Information - DigiDeck Converter</h2>
+    <div id="sections-container">
+        <div class="section">
+            <h3 contenteditable="true">Your Viewing</h3>
+            <label for="viewing-title">Title:</label>
+            <input type="text" id="viewing-title" value=""><br>
+            <label for="viewing-description">Description:</label>
+            <textarea id="viewing-description" rows="4" cols="50"></textarea><br>
+            <label for="viewing-url">Image URL:</label>
+            <input type="text" id="viewing-url" value=""><br>
+            <label for="viewing-link">Link URL:</label>
+            <input type="text" id="viewing-link" value=""><br>
+            <label for="viewing-date">Date:</label>
+            <input type="text" id="viewing-date" value=""><br>
+            <label for="viewing-list">List Items:</label>
+            <div id="viewing-list-container" class="list-container"></div>
+            <button type="button" onclick="addListItem('viewing-list-container')">Add List Item</button><br>
+            <div class="italic-text-container">
+                <label for="viewing-italic">Italic Text:</label>
+                <input type="text" id="viewing-italic" value=""><br>
+            </div>
+        </div>
+        <div class="section">
+            <h5 id="hospitality-date"></h5>
+            <h3 contenteditable="true">Hospitality</h3>
+            <label for="hospitality-title">Title:</label>
+            <input type="text" id="hospitality-title" value=""><br>
+            <label for="hospitality-description">Description:</label>
+            <textarea id="hospitality-description" rows="4" cols="50"></textarea><br>
+            <label for="hospitality-url">Image URL:</label>
+            <input type="text" id="hospitality-url" value=""><br>
+            <label for="hospitality-link">Link URL:</label>
+            <input type="text" id="hospitality-link" value=""><br>
+            <label for="hospitality-date">Date:</label>
+            <input type="text" id="hospitality-date" value=""><br>
+            <label for="hospitality-list">List Items:</label>
+            <div id="hospitality-list-container" class="list-container"></div>
+            <button type="button" onclick="addListItem('hospitality-list-container')">Add List Item</button><br>
+            <div class="italic-text-container">
+                <label for="hospitality-italic">Italic Text:</label>
+                <input type="text" id="hospitality-italic" value=""><br>
+            </div>
+        </div>
+    </div>
+    <button onclick="addSection()">Add Inclusion</button>
+    <button onclick="convertContent()">Convert to Digideck</button>
+</div>
+
+<div>
+    <h2>Extras</h2>
+    <div id="extras-container">
+        <div class="section">
+            <label for="extra-title">Title:</label>
+            <input type="text" id="extra-title" value=""><br>
+        </div>
+    </div>
+    <button onclick="addExtra()">Add Extra</button>
+</div>
+
+<h2>Converted Digideck Code</h2>
+<textarea id="converted-code"></textarea>
+
+<script>
+    function addSection() {
+        const container = document.getElementById('sections-container');
+        const sectionCount = container.children.length + 1;
+        const section = document.createElement('div');
+        section.className = 'section';
+        section.innerHTML = `
+            <h5 id="section-date-${sectionCount}"></h5>
+            <h3 contenteditable="true">Inclusion ${sectionCount}</h3>
+            <label for="section-title-${sectionCount}">Title:</label>
+            <input type="text" id="section-title-${sectionCount}" value=""><br>
+            <label for="section-description-${sectionCount}">Description:</label>
+            <textarea id="section-description-${sectionCount}" rows="4" cols="50"></textarea><br>
+            <label for="section-url-${sectionCount}">Image URL:</label>
+            <input type="text" id="section-url-${sectionCount}" value=""><br>
+            <label for="section-link-${sectionCount}">Link URL:</label>
+            <input type="text" id="section-link-${sectionCount}" value=""><br>
+            <label for="section-date-${sectionCount}">Date:</label>
+            <input type="text" id="section-date-${sectionCount}" value=""><br>
+            <label for="section-list-${sectionCount}">List Items:</label>
+            <div id="section-list-container-${sectionCount}" class="list-container"></div>
+            <button type="button" onclick="addListItem('section-list-container-${sectionCount}')">Add List Item</button><br>
+            <div class="italic-text-container">
+                <label for="section-italic-${sectionCount}">Italic Text:</label>
+                <input type="text" id="section-italic-${sectionCount}" value=""><br>
+            </div>
+        `;
+        container.appendChild(section);
+    }
+
+    function addExtra() {
+        const container = document.getElementById('extras-container');
+        const extraCount = container.children.length + 1;
+        const extra = document.createElement('div');
+        extra.className = 'section';
+        extra.innerHTML = `
+            <label for="extra-title-${extraCount}">Title:</label>
+            <input type="text" id="extra-title-${extraCount}" value=""><br>
+        `;
+        container.appendChild(extra);
+    }
+
+    function addListItem(containerId) {
+        const container = document.getElementById(containerId);
+        const listItem = document.createElement('div');
+        listItem.className = 'list-item';
+        listItem.innerHTML = `
+            <input type="text" class="list-input" value="">
+            <button type="button" onclick="removeListItem(this)">Remove</button>
+        `;
+        container.appendChild(listItem);
+    }
+
+    function removeListItem(button) {
+        const listItem = button.parentElement;
+        listItem.remove();
+    }
+
+    async function fetchPackageData() {
+        const url = document.getElementById('package-url').value;
+        if (!url) {
+            alert('Please enter a URL');
+            return;
+        }
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+
+            // Populate the form fields with the fetched data
+            document.getElementById('viewing-title').value = data.viewing.title || '';
+            document.getElementById('viewing-description').value = data.viewing.description || '';
+            document.getElementById('viewing-url').value = data.viewing.imageUrl || '';
+            document.getElementById('viewing-link').value = data.viewing.linkUrl || '';
+            document.getElementById('viewing-date').value = data.viewing.date || '';
+            populateListItems('viewing-list-container', data.viewing.listItems);
+
+            document.getElementById('hospitality-title').value = data.hospitality.title || '';
+            document.getElementById('hospitality-description').value = data.hospitality.description || '';
+            document.getElementById('hospitality-url').value = data.hospitality.imageUrl || '';
+            document.getElementById('hospitality-link').value = data.hospitality.linkUrl || '';
+            document.getElementById('hospitality-date').value = data.hospitality.date || '';
+            populateListItems('hospitality-list-container', data.hospitality.listItems);
+            document.getElementById('hospitality-italic').value = data.hospitality.italicText || '';
+
+            // Populate extras
+            const extrasContainer = document.getElementById('extras-container');
+            extrasContainer.innerHTML = '';
+            data.extras.forEach((extra, index) => {
+                const extraDiv = document.createElement('div');
+                extraDiv.className = 'section';
+                extraDiv.innerHTML = `
+                    <label for="extra-title-${index + 1}">Title:</label>
+                    <input type="text" id="extra-title-${index + 1}" value="${extra.title}"><br>
+                `;
+                extrasContainer.appendChild(extraDiv);
+            });
+        } catch (error) {
+            console.error('Error fetching package data:', error);
+            alert('Failed to fetch package data. Please check the URL and try again.');
+        }
+    }
+
+    function populateListItems(containerId, items) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+        items.forEach(item => {
+            const listItem = document.createElement('div');
+            listItem.className = 'list-item';
+            listItem.innerHTML = `
+                <input type="text" class="list-input" value="${item}">
+                <button type="button" onclick="removeListItem(this)">Remove</button>
+            `;
+            container.appendChild(listItem);
+        });
+    }
+
+    function convertContent() {
+        const sectionsContainer = document.getElementById('sections-container');
+        const extrasContainer = document.getElementById('extras-container');
+        const convertedContent = [];
+
+        // Add "Your Seating" heading and track map link
+        const viewingLink = document.getElementById('viewing-link').value;
+        convertedContent.push(`<h5>Your Seating</h5>`);
+        if (viewingLink) {
+            convertedContent.push(`<a href="${viewingLink}" id="seating-chart-button">Track Map</a>`);
+        }
+
+        Array.from(sectionsContainer.children).forEach(section => {
+            const titleElement = section.querySelector('input[id^="section-title"], input[id^="viewing-title"], input[id^="hospitality-title"]');
+            const descriptionElement = section.querySelector('textarea[id^="section-description"], textarea[id^="viewing-description"], textarea[id^="hospitality-description"]');
+            const urlElement = section.querySelector('input[id^="section-url"], input[id^="viewing-url"], input[id^="hospitality-url"]');
+            const linkElement = section.querySelector('input[id^="section-link"], input[id^="viewing-link"], input[id^="hospitality-link"]');
+            const dateElement = section.querySelector('input[id^="section-date"], input[id^="viewing-date"], input[id^="hospitality-date"]');
+            const listContainer = section.querySelector('.list-container');
+            const italicElement = section.querySelector('input[id^="section-italic"], input[id^="hospitality-italic"]');
+
+            const title = titleElement ? titleElement.value.replace(/™/g, '&trade;').replace(/®/g, '&reg;') : '';
+            const description = descriptionElement ? descriptionElement.value.replace(/™/g, '&trade;').replace(/®/g, '&reg;') : '';
+            const url = urlElement ? urlElement.value : '';
+            const link = linkElement ? linkElement.value : '';
+            const date = dateElement ? dateElement.value : '';
+            const listItems = Array.from(listContainer.querySelectorAll('.list-input')).map(input => input.value).filter(item => item).map(item => `<li>${item}</li>`).join('\n');
+            const italicText = italicElement ? italicElement.value : '';
+
+            if (title || description || url || link || date || listItems || italicText) {
+                if (date) {
+                    convertedContent.push(`<h5>${date}</h5>`);
+                }
+                convertedContent.push(`<p><strong>${title}</strong><br><span class="small">${description.replace(/<br\s*\/?>/g, '<br>\n')}`);
+                if (url) {
+                    convertedContent.push(`<a href="${url}"><ion-icon name="image-outline"></ion-icon></a>`);
+                }
+                if (link) {
+                    convertedContent.push(`<br /><a href="${link}">Your View&raquo;</a>`);
+                }
+                convertedContent.push(`<br /><em>*Image shown is not representative of view.</em></span></p>`);
+                if (listItems) {
+                    convertedContent.push(`<ul>\n${listItems}\n</ul>`);
+                }
+                if (italicText) {
+                    convertedContent.push(`<p><span class="small"><em>${italicText}</em></span></p>`);
+                }
+                convertedContent.push(`<p></p>`); // Add spacing between sections
+            }
+        });
+
+        convertedContent.push(`<h5>Extras</h5>`);
+        Array.from(extrasContainer.children).forEach(extra => {
+            const titleElement = extra.querySelector('input[id^="extra-title"]');
+            const title = titleElement ? titleElement.value.replace(/™/g, '&trade;').replace(/®/g, '&reg;') : '';
+            if (title) {
+                convertedContent.push(`<p><strong>${title}</strong></p>`);
+            }
+        });
+
+        document.getElementById('converted-code').value = convertedContent.join('\n\n'); // Add double newlines for spacing
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<h5>Your Viewing/Seating</h5>
+<a href="Seating_Inclusion_Seating_Chart" id="seating-chart-button">Track Map</a>
+<p>
+	<strong>Seating_Inclusion_Name</strong>
+	<br>
+	<span class="small">
+        Seating_Inclusion_Text
+		<br />
+		Seating_Inclusion_Date
+		<br />
+        <a href="Seating_Inclusion_Image">Your View&amp;raquo;</a>
+	</span>
+</p>
+
+<h5>Friday - Sunday</h5>
+
+<p>
+	<strong>Hospitality_Inclusion_Title</strong>
+	<a href="https://assets.quintevents.com/m/68101875a02c6212/72_DPI_WEB-F1E-Abu-Dhabi-2021-Turn1-Suite-37.jpg">
+		<ion-icon name="image-outline"></ion-icon> 
+	</a>
+	<br>
+	<span class="small">
+		Hospitality_Inclusion_Text
+	</span>
+</p>
+
+<ul>
+    <li>Hospitality_Inclusion_List_1</li>
+    <li>Hospitality_Inclusion_List_2</li>
+    <li>Hospitality_Inclusion_List_3</li>
+    <li>Hospitality_Inclusion_List_4</li>
+</ul>
+
+<h5>Inclusions_Date</h5>
+
+<p>
+	<strong>Inclusion_1_Title</strong>
+	<a href="Inclusion_1_Image">
+		<ion-icon name="image-outline"></ion-icon> 
+	</a>
+	<br>
+	<span class="small">
+		Inclusion_1_Text
+    </span>
+</p>
+
+
+<h5>Exclusive Extras</h5>
+<p><strong>F1&reg; Experiences Rewards</strong></p>
+<p><strong>F1&reg; Experiences Lanyard</strong></p>
